@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="emcos-dev-eug-1" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating schema for emcos application</comment>
+        <sql dbms="postgresql" endDelimiter=";">
+            create schema emcos
+        </sql>
+
+        <rollback>
+            <sql dbms="postgresql" endDelimiter=";">
+                drop schema emcos
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-2" logicalFilePath="path-independent" author="eugene" >
+        <comment>Creating table: emcos_servers</comment>
+        <createTable tableName="emcos_servers" schemaName="emcos" remarks="Сервера EMCOS">
+            <column name="id" type="number" remarks="Идентификатор">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(100)" remarks="Наименование">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="url" type="varchar(300)" remarks="URL сервиса">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="user_name" type="varchar(30)" remarks="Учетная запись">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pwd" type="varchar(30)" remarks="Пароль">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="TIMESTAMP" remarks="Дата создания">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_date" type="TIMESTAMP" remarks="Дата изменения">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_by" type="number" remarks="Автор">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_by" type="number" remarks="Автор изменения">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-3" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_servers</comment>
+        <addPrimaryKey
+            columnNames="id"
+            constraintName="pk_emcos_servers"
+            schemaName="emcos"
+            tableName="emcos_servers"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-4" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating sequence for table emcos_servers_s</comment>
+        <createSequence
+            incrementBy="1"
+            schemaName="emcos"
+            sequenceName="emcos_servers_s"
+            startValue="1"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-5" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_pt_values</comment>
+        <createTable tableName="emcos_pt_values" schemaName="emcos" remarks="Значения расходов эл. энергии из  системы EMCOS">
+            <column name="id" type="number" remarks="Идентификатор">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="point_code" type="varchar(18)" remarks="Код точки учета в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="param_code" type="varchar(4)" remarks="Код параметра в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="metering_date" type="TIMESTAMP" remarks="Дата и время измерения">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="val" type="number" remarks="Значение измерения">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_date" type="TIMESTAMP" remarks="Дата создания">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_date" type="TIMESTAMP" remarks="Дата изменения">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_by" type="number" remarks="Автор">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_by" type="number" remarks="Автор изменения">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-6" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_pt_values</comment>
+        <addPrimaryKey
+                columnNames="id"
+                constraintName="pk_emcos_pt_values"
+                schemaName="emcos"
+                tableName="emcos_pt_values"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-7" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating sequence for table emcos_pt_values_s</comment>
+        <createSequence
+                incrementBy="1"
+                schemaName="emcos"
+                sequenceName="emcos_pt_values_s"
+                startValue="1"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-8" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_at_values</comment>
+        <createTable tableName="emcos_at_values" schemaName="emcos" remarks="Показания приборов учёта эл. энергии из системы EMCOS">
+            <column name="id" type="number" remarks="Идентификатор">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="point_code" type="varchar(18)" remarks="Код точки учета в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="param_code" type="varchar(4)" remarks="Код параметра в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="metering_date" type="TIMESTAMP" remarks="Дата и время измерения">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="val" type="number" remarks="Значение измерения">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_date" type="TIMESTAMP" remarks="Дата создания">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_date" type="TIMESTAMP" remarks="Дата изменения">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_by" type="number" remarks="Автор">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="last_updated_by" type="number" remarks="Автор изменения">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-9" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_at_values</comment>
+        <addPrimaryKey
+                columnNames="id"
+                constraintName="pk_emcos_at_values"
+                schemaName="emcos"
+                tableName="emcos_at_values"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-10" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating sequence for table emcos_at_values_s</comment>
+        <createSequence
+                incrementBy="1"
+                schemaName="emcos"
+                sequenceName="emcos_at_values_s"
+                startValue="1"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-11" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_at_values</comment>
+        <createTable tableName="emcos_at_params" schemaName="emcos" remarks="Список параметров для импорта показаний приборов учёта">
+            <column name="code" type="varchar(4)" remarks="Код параметра в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-12" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_at_params</comment>
+        <addPrimaryKey
+                columnNames="code"
+                constraintName="pk_emcos_at_params"
+                schemaName="emcos"
+                tableName="emcos_at_params"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-13" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_pt_values</comment>
+        <createTable tableName="emcos_pt_params" schemaName="emcos" remarks="Список параметров для импорта расходов">
+            <column name="code" type="varchar(4)" remarks="Код параметра в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-14" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_pt_params</comment>
+        <addPrimaryKey
+                columnNames="code"
+                constraintName="pk_emcos_pt_params"
+                schemaName="emcos"
+                tableName="emcos_pt_params"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-15" logicalFilePath="path-independent" author="eugene">
+        <comment>Adding following fields to emcos_servers table: arc_depth</comment>
+        <addColumn schemaName="emcos" tableName="emcos_servers">
+            <column name="arc_depth" type="number" remarks="Глубина хранения архива" defaultValue="60">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-16" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_at_points</comment>
+        <createTable tableName="emcos_at_points" schemaName="emcos" remarks="Список точек учёта для импорта показаний приборов учёта">
+            <column name="code" type="varchar(18)" remarks="Код точки учёта в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-17" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_at_points</comment>
+        <addPrimaryKey
+                columnNames="code"
+                constraintName="pk_emcos_at_points"
+                schemaName="emcos"
+                tableName="emcos_at_points"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-18" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating table: emcos_pt_points</comment>
+        <createTable tableName="emcos_pt_points" schemaName="emcos" remarks="Список точек учёта для импорта расходов">
+            <column name="code" type="varchar(18)" remarks="Код точки учёта в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-19" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating primary key for table emcos_pt_points</comment>
+        <addPrimaryKey
+                columnNames="code"
+                constraintName="pk_emcos_pt_points"
+                schemaName="emcos"
+                tableName="emcos_pt_points"/>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-20" logicalFilePath="path-independent" author="eugene">
+        <comment>Adding following fields to emcos_servers table: time_zone</comment>
+        <addColumn schemaName="emcos" tableName="emcos_servers">
+            <column name="time_zone" type="varchar(30)" remarks="Часовой пояс в формате UTC" defaultValue="UTC+1">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-21" logicalFilePath="path-independent" author="eugene">
+        <comment>Adding following fields to emcos_servers table: time_zone</comment>
+        <addUniqueConstraint schemaName="emcos" tableName="emcos_at_values" constraintName="un_emcos_servers_1" columnNames="point_code, param_code, metering_date" />
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-23" logicalFilePath="path-independent" author="eugene" >
+        <comment>Creating table: emcos_at_point_params</comment>
+        <createTable tableName="emcos_at_point_params" schemaName="emcos" remarks="Параметры, релевантные для точек учёта">
+            <column name="point_code" type="varchar(18)" remarks="Код точки учёта в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="param_code" type="varchar(4)" remarks="Код параметра EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="last_load_date" type="TIMESTAMP" remarks="Дата и время последней загрузки данных">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_metering_date" type="TIMESTAMP" remarks="Дата и время последней загрузки данных">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-24" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating unique constraint for table emcos_at_point_params by following fields: point_code, param_code</comment>
+        <addUniqueConstraint
+            columnNames="point_code, param_code"
+            constraintName="un_emcos_at_point_params_1"
+            schemaName="emcos"
+            tableName="emcos_at_point_params" />
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-25" logicalFilePath="path-independent" author="eugene">
+        <comment>Dropping following fields from table emcos_at_values: created_by, last_updated_by</comment>
+        <dropColumn schemaName="emcos" tableName="emcos_at_values">
+            <column name="created_by" />
+            <column name="last_updated_by" />
+        </dropColumn>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-26" logicalFilePath="path-independent" author="eugene">
+        <comment>Dropping following fields from table emcos_pt_values: created_by, last_updated_by</comment>
+        <dropColumn schemaName="emcos" tableName="emcos_pt_values">
+            <column name="created_by" />
+            <column name="last_updated_by" />
+        </dropColumn>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-27" logicalFilePath="path-independent" author="eugene">
+        <comment>Dropping unique constraint un_emcos_at_point_params_1 from table emcos_at_point_params</comment>
+        <dropUniqueConstraint schemaName="emcos" tableName="emcos_at_point_params" constraintName="un_emcos_at_point_params_1" />
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-28" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating unique constraint for table emcos_at_point_params by following fields: point_code, param_code</comment>
+        <addPrimaryKey
+            columnNames="point_code, param_code"
+            constraintName="pk_emcos_at_point_params"
+            schemaName="emcos"
+            tableName="emcos_at_point_params" />
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-29" logicalFilePath="path-independent" author="eugene" >
+        <comment>Creating table: emcos_pt_point_params</comment>
+        <createTable tableName="emcos_pt_point_params" schemaName="emcos" remarks="Параметры, релевантные для точек учёта">
+            <column name="point_code" type="varchar(18)" remarks="Код точки учёта в системе EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="param_code" type="varchar(4)" remarks="Код параметра EMCOS">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="last_load_date" type="TIMESTAMP" remarks="Дата и время последней загрузки данных">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_metering_date" type="TIMESTAMP" remarks="Дата и время последней загрузки данных">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="emcos-dev-eug-30" logicalFilePath="path-independent" author="eugene">
+        <comment>Creating unique constraint for table emcos_pt_point_params by following fields: point_code, param_code</comment>
+        <addPrimaryKey
+            columnNames="point_code, param_code"
+            constraintName="pk_emcos_pt_point_params"
+            schemaName="emcos"
+            tableName="emcos_pt_point_params" />
+    </changeSet>
+</databaseChangeLog>
